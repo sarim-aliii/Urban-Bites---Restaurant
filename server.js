@@ -14,8 +14,8 @@ const flash = require('connect-flash');
 
 
 // MongoDB connection
-const MONGO_URL = "mongodb://127.0.0.1:27017/Restaurant";
-mongoose.connect(MONGO_URL)
+const dbURL = process.env.DB_URL;
+mongoose.connect(dbURL)
   .then(() => console.log("Connected to DB"))
   .catch((err) => console.log(err));
 
