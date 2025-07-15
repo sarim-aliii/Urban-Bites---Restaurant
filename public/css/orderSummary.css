@@ -1,0 +1,125 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f8f4f0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+nav {
+  position: absolute;
+  top: 0px;
+  width: 100%;
+  text-align: center;
+}
+
+.nav-flex-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  position: absolute;
+  z-index: 100;
+  left: 0;
+  width: 100%;
+}
+
+.nav-flex-row li {
+  text-decoration: underline;
+  list-style-type: none;
+  padding: 20px 15px;
+  color: gray;
+}
+
+.nav-flex-row li a {
+  font-family: 'Big Shoulders Text', cursive;
+  color: black;
+  font-size: 1.25em;
+  text-transform: uppercase;
+  font-weight: 300;
+}
+
+h1,
+h2 {
+    font-family: 'Merriweather', serif;
+    color: #333;
+}
+
+.container {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+    margin-top: 65px;
+}
+
+.order-details p {
+    margin-bottom: 8px;
+    font-size: 1.05em;
+    color: #555;
+}
+
+.order-details strong {
+    color: #333;
+}
+
+.item-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 15px;
+    border-top: 1px dashed #eee;
+    padding-top: 15px;
+}
+
+.item-list li {
+    background-color: #f0f0f0;
+    padding: 8px 12px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.95em;
+}
+
+.item-list li span:first-child {
+    font-weight: 500;
+}
+
+.total-summary {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #ddd;
+}
+
+.total-summary p {
+    font-size: 1.1em;
+    margin-bottom: 5px;
+}
+
+.total-summary h3 {
+    font-size: 1.8em;
+    color: #e44d26;
+    /* A nice orange/red for emphasis */
+    margin-top: 10px;
+}
+
+.btn-back {
+    display: inline-block;
+    margin-top: 25px;
+    padding: 10px 25px;
+    background-color: #f0ad4e;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-back:hover {
+    background-color: #e59436;
+}

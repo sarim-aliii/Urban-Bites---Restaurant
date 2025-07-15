@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Make Payment - Urban Bites</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Merriweather:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/css/madePayment.css">
+</head>
+<body class="flex flex-col items-center justify-center min-h-screen p-4">
+    <div class="container">
+        <h2 class="text-3xl font-bold mb-6">Complete Your Payment</h2>
+
+        <% if (order) { %>
+            <p class="text-xl font-semibold mb-8 text-gray-700">
+                Amount Due: <span class="text-green-600">₹<%= order.totalPrice.toFixed(2) %></span>
+            </p>
+
+            <form id="paymentForm" class="space-y-4">
+                <!-- UPI Payment Method -->
+                <div class="payment-method-card" data-method="upi">
+                    <h3><i class="fas fa-qrcode"></i> Pay with UPI</h3>
+                    <p class="text-sm text-gray-600">Scan QR or enter UPI ID.</p>
+                    <div class="payment-details hidden">
+                        <label for="upiId">UPI ID:</label>
+                        <input type="text" id="upiId" name="upiId" placeholder="yourname@bankupi" class="mb-2" required>
+                        <p class="text-xs text-gray-500">A payment request will be sent to this UPI ID.</p>
+                    </div>
+                </div>
+
+                <!-- Credit/Debit Card Method -->
+                <div class="payment-method-card" data-method="card">
+                    <h3><i class="fas fa-credit-card"></i> Credit/Debit Card</h3>
+                    <p class="text-sm text-gray-600">Pay securely with your card.</p>
+                    <div class="payment-details hidden">
+                        <label for="cardNumber">Card Number:</label>
+                        <input type="text" id="cardNumber" name="cardNumber" placeholder="XXXX XXXX XXXX XXXX" maxlength="19" required>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label for="expiryDate">Expiry Date (MM/YY):</label>
+                                <input type="text" id="expiryDate" name="expiryDate" placeholder="MM/YY" maxlength="5" required>
+                            </div>
+                            <div>
+                                <label for="cvv">CVV:</label>
+                                <input type="text" id="cvv" name="cvv" placeholder="XXX" maxlength="3" required>
+                            </div>
+                        </div>
+                        <label for="cardName">Name on Card:</label>
+                        <input type="text" id="cardName" name="cardName" placeholder="Full Name" required>
+                    </div>
+                </div>
+
+                <!-- Net Banking Method -->
+                <div class="payment-method-card" data-method="netbanking">
+                    <h3><i class="fas fa-university"></i> Net Banking</h3>
+                    <p class="text-sm text-gray-600">Pay using your bank's net banking portal.</p>
+                    <div class="payment-details hidden">
+                        <label for="bankSelect">Select Your Bank:</label>
+                        <select id="bankSelect" name="bank" class="w-full px-3 py-2 mt-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent" required>
+                            <option value="">-- Select Bank --</option>
+                            <option value="sbi">State Bank of India</option>
+                            <option value="hdfc">HDFC Bank</option>
+                            <option value="icici">ICICI Bank</option>
+                            <option value="axis">Axis Bank</option>
+                            <option value="pnb">Punjab National Bank</option>
+                            <option value="other">Other Bank</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" id="payNowBtn" class="w-full btn-pay mt-8">Pay Now</button>
+            </form>
+
+            <a href="/order-summary/<%= order._id %>" class="text-sm text-gray-600 mt-4 block hover:underline">
+                <i class="fas fa-arrow-left mr-2"></i> Back to Order Summary
+            </a>
+
+        <% } else { %>
+            <p class="text-red-500 text-lg">Order details not found. Please go back to the order page.</p>
+            <a href="/delivery" class="btn-back">Go to Delivery Page</a>
+        <% } %>
+    </div>
+
+    <script src="/js/madePayment.js"></script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/delivery.css">
+  <title>Home Delivery - Urban Bites</title>
+</head>
+<body>
+  <nav>
+    <ul class="nav-flex-row">
+      <li class="nav-item"><a href="/index">Home Page</a></li>
+      <li class="nav-item"><a href="/reservation">Reservation</a></li>
+      <li class="nav-item"><a href="/menu">Menu</a></li>
+      <li class="nav-item"><a href="/delivery">Home Delivery</a></li>
+      <li class="nav-item"><a href="/about">About</a></li>
+    </ul>
+  </nav>
+
+  <section class="delivery-section">
+    <div class="container">
+      <h2>Order Food for Delivery</h2>
+      <form id="orderForm" action="/submit-order" method="POST">
+        <div class="customer-info">
+          <label for="customerName">Name:</label>
+          <input type="text" id="customerName" name="name" required>
+
+          <label for="customerPhone">Phone:</label>
+          <input type="tel" id="customerPhone" name="phone" pattern="^[0-9]{10}$" title="Enter a valid 10-digit phone number" required>
+
+          <label for="customerAddress">Address:</label>
+          <textarea id="customerAddress" name="address" required></textarea>
+        </div>
+
+        <div class="menu-category">
+          <h3>Appetizers</h3>
+          <div class="menu-option"><label><span>Bruschetta - ₹800</span><input type="checkbox" class="menu-item" name="items" value="Bruschetta - ₹800" data-price="800"></label></div>
+          <div class="menu-option"><label><span>Stuffed Mushrooms - ₹1000</span><input type="checkbox" class="menu-item" name="items" value="Stuffed Mushrooms - ₹1000" data-price="1000"></label></div>
+          <div class="menu-option"><label><span>Garlic Bread - ₹600</span><input type="checkbox" class="menu-item" name="items" value="Garlic Bread - ₹600" data-price="600"></label></div>
+          <div class="menu-option"><label><span>Caprese Salad - ₹900</span><input type="checkbox" class="menu-item" name="items" value="Caprese Salad - ₹900" data-price="900"></label></div>
+          <div class="menu-option"><label><span>Spinach Artichoke Dip - ₹1200</span><input type="checkbox" class="menu-item" name="items" value="Spinach Artichoke Dip - ₹1200" data-price="1200"></label></div>
+        </div>
+
+        <div class="menu-category">
+          <h3>Soups & Salads</h3>
+          <div class="menu-option"><label><span>Tomato Basil Soup - ₹700</span><input type="checkbox" class="menu-item" name="items" value="Tomato Basil Soup - ₹700" data-price="700"></label></div>
+          <div class="menu-option"><label><span>Caesar Salad - ₹800</span><input type="checkbox" class="menu-item" name="items" value="Caesar Salad - ₹800" data-price="800"></label></div>
+          <div class="menu-option"><label><span>Greek Salad - ₹1000</span><input type="checkbox" class="menu-item" name="items" value="Greek Salad - ₹1000" data-price="1000"></label></div>
+          <div class="menu-option"><label><span>Minestrone Soup - ₹750</span><input type="checkbox" class="menu-item" name="items" value="Minestrone Soup - ₹750" data-price="750"></label></div>
+          <div class="menu-option"><label><span>Chicken Caesar Salad - ₹1200</span><input type="checkbox" class="menu-item" name="items" value="Chicken Caesar Salad - ₹1200" data-price="1200"></label></div>
+        </div>
+
+        <div class="menu-category">
+          <h3>Main Courses</h3>
+          <div class="menu-option"><label><span>Grilled Salmon - ₹1800</span><input type="checkbox" class="menu-item" name="items" value="Grilled Salmon - ₹1800" data-price="1800"></label></div>
+          <div class="menu-option"><label><span>Pasta Carbonara - ₹1500</span><input type="checkbox" class="menu-item" name="items" value="Pasta Carbonara - ₹1500" data-price="1500"></label></div>
+          <div class="menu-option"><label><span>Chicken Parmesan - ₹1600</span><input type="checkbox" class="menu-item" name="items" value="Chicken Parmesan - ₹1600" data-price="1600"></label></div>
+          <div class="menu-option"><label><span>Chicken Lasagna - ₹1700</span><input type="checkbox" class="menu-item" name="items" value="Chicken Lasagna - ₹1700" data-price="1700"></label></div>
+          <div class="menu-option"><label><span>Vegetable Stir-Fry - ₹1400</span><input type="checkbox" class="menu-item" name="items" value="Vegetable Stir-Fry - ₹1400" data-price="1400"></label></div>
+        </div>
+
+        <div class="menu-category">
+          <h3>Pizzas</h3>
+          <div class="menu-option"><label><span>Margherita - ₹1200</span><input type="checkbox" class="menu-item" name="items" value="Margherita - ₹1200" data-price="1200"></label></div>
+          <div class="menu-option"><label><span>Pepperoni - ₹1400</span><input type="checkbox" class="menu-item" name="items" value="Pepperoni - ₹1400" data-price="1400"></label></div>
+          <div class="menu-option"><label><span>BBQ Chicken - ₹1500</span><input type="checkbox" class="menu-item" name="items" value="BBQ Chicken - ₹1500" data-price="1500"></label></div>
+          <div class="menu-option"><label><span>Vegetarian - ₹1300</span><input type="checkbox" class="menu-item" name="items" value="Vegetarian - ₹1300" data-price="1300"></label></div>
+          <div class="menu-option"><label><span>Four Cheese - ₹1400</span><input type="checkbox" class="menu-item" name="items" value="Four Cheese - ₹1400" data-price="1400"></label></div>
+        </div>
+
+        <div class="menu-category">
+          <h3>Burgers & Sandwiches</h3>
+          <div class="menu-option"><label><span>Classic Cheeseburger - ₹1200</span><input type="checkbox" class="menu-item" name="items" value="Classic Cheeseburger - ₹1200" data-price="1200"></label></div>
+          <div class="menu-option"><label><span>Bacon Avocado Burger - ₹1350</span><input type="checkbox" class="menu-item" name="items" value="Bacon Avocado Burger - ₹1350" data-price="1350"></label></div>
+          <div class="menu-option"><label><span>Grilled Chicken Sandwich - ₹1100</span><input type="checkbox" class="menu-item" name="items" value="Grilled Chicken Sandwich - ₹1100" data-price="1100"></label></div>
+          <div class="menu-option"><label><span>BLT Sandwich - ₹1000</span><input type="checkbox" class="menu-item" name="items" value="BLT Sandwich - ₹1000" data-price="1000"></label></div>
+        </div>
+
+        <div class="menu-category">
+          <h3>Sides</h3>
+          <div class="menu-option"><label><span>French Fries - ₹400</span><input type="checkbox" class="menu-item" name="items" value="French Fries - ₹400" data-price="400"></label></div>
+          <div class="menu-option"><label><span>Sweet Potato Fries - ₹500</span><input type="checkbox" class="menu-item" name="items" value="Sweet Potato Fries - ₹500" data-price="500"></label></div>
+          <div class="menu-option"><label><span>Coleslaw - ₹300</span><input type="checkbox" class="menu-item" name="items" value="Coleslaw - ₹300" data-price="300"></label></div>
+          <div class="menu-option"><label><span>Onion Rings - ₹450</span><input type="checkbox" class="menu-item" name="items" value="Onion Rings - ₹450" data-price="450"></label></div>
+          <div class="menu-option"><label><span>Side Salad - ₹500</span><input type="checkbox" class="menu-item" name="items" value="Side Salad - ₹500" data-price="500"></label></div>
+        </div>
+
+        <div class="menu-category">
+          <h3>Desserts</h3>
+          <div class="menu-option"><label><span>Cheesecake - ₹700</span><input type="checkbox" class="menu-item" name="items" value="Cheesecake - ₹700" data-price="700"></label></div>
+          <div class="menu-option"><label><span>Tiramisu - ₹800</span><input type="checkbox" class="menu-item" name="items" value="Tiramisu - ₹800" data-price="800"></label></div>
+          <div class="menu-option"><label><span>Chocolate Lava Cake - ₹900</span><input type="checkbox" class="menu-item" name="items" value="Chocolate Lava Cake - ₹900" data-price="900"></label></div>
+          <div class="menu-option"><label><span>Ice Cream Sundae - ₹600</span><input type="checkbox" class="menu-item" name="items" value="Ice Cream Sundae - ₹600" data-price="600"></label></div>
+          <div class="menu-option"><label><span>Apple Pie - ₹700</span><input type="checkbox" class="menu-item" name="items" value="Apple Pie - ₹700" data-price="700"></label></div>
+        </div>
+
+        <div class="menu-category">
+          <h3>Beverages</h3>
+          <div class="menu-option"><label><span>Soft Drinks - ₹250</span><input type="checkbox" class="menu-item" name="items" value="Soft Drinks - ₹250" data-price="250"></label></div>
+          <div class="menu-option"><label><span>Fresh Lemonade - ₹350</span><input type="checkbox" class="menu-item" name="items" value="Fresh Lemonade - ₹350" data-price="350"></label></div>
+          <div class="menu-option"><label><span>Iced Tea - ₹300</span><input type="checkbox" class="menu-item" name="items" value="Iced Tea - ₹300" data-price="300"></label></div>
+          <div class="menu-option"><label><span>Coffee - ₹250</span><input type="checkbox" class="menu-item" name="items" value="Coffee - ₹250" data-price="250"></label></div>
+          <div class="menu-option"><label><span>Espresso - ₹300</span><input type="checkbox" class="menu-item" name="items" value="Espresso - ₹300" data-price="300"></label></div>
+        </div>
+
+        <div class="order-summary">
+          <h3>Order Summary</h3>
+          <p>Subtotal: ₹<span id="totalPrice">0.00</span></p>
+          <p>Delivery Fee: ₹<span id="deliveryFee">0.00</span></p>
+          <p>GST (5%): ₹<span id="gstAmount">0.00</span></p>
+          <hr>
+          <p><strong>Final Total: ₹<span id="finalTotal">0.00</span></strong></p>
+
+          <input type="hidden" id="totalPriceInput" name="totalPrice">
+
+          <button type="submit" class="btn-primary">CheckOut &rarr;</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <script src="/js/delivery.js"></script>
+</body>
+</html>

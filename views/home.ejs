@@ -1,0 +1,31 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urban Bites</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"></link>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        .hero-bg {
+            background: linear-gradient(135deg, #fdfcfb 0%, #e2d1c3 100%);
+        }
+        .glow-text {
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        }
+        .explore-btn:hover {
+            background-color: #d4a373;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="hero-bg font-sans">
+    <div class="min-h-screen flex flex-col justify-center items-center">
+        <h1 class="text-6xl font-great-vibes text-gray-800 glow-text mb-8">Urban Bites</h1>
+        <a href="/login">
+            <button class="explore-btn bg-yellow-500 text-white font-semibold py-3 px-6 rounded-full shadow-lg transition-transform duration-300 ease-in-out hover:bg-yellow-600">
+            Explore
+        </button>
+        </a>
+        
+    </div>
+</body>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Summary - Urban Bites</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Merriweather:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/orderSummary.css">
+</head>
+<body>
+    <nav>
+        <ul class="nav-flex-row">
+        <li class="nav-item"><a href="/index">Home Page</a></li>
+        <li class="nav-item"><a href="/reservation">Reservation</a></li>
+        <li class="nav-item"><a href="/menu">Menu</a></li>
+        <li class="nav-item"><a href="/delivery">Home Delivery</a></li>
+        <li class="nav-item"><a href="/about">About</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h2 class="text-3xl font-bold mb-6">Order Summary</h2>
+
+        <% if (order) { %>
+            <div class="order-details text-left">
+                <p><strong>Order ID:</strong> <%= order._id %></p>
+                <p><strong>Order Date:</strong> <%= order.createdAt.toLocaleString() %></p>
+                <p><strong>Customer Name:</strong> <%= order.name %></p>
+                <p><strong>Phone:</strong> <%= order.phone %></p>
+                <p><strong>Delivery Address:</strong> <%= order.address %></p>
+
+                <h3 class="text-xl font-semibold mt-6 mb-3">Items Ordered:</h3>
+                <ul class="item-list">
+                    <% order.items.forEach(item => { %>
+                        <li>
+                            <span><%= item.name %></span>
+                            <span>₹<%= item.price.toFixed(2) %></span>
+                        </li>
+                    <% }); %>
+                </ul>
+
+                <div class="total-summary">
+                    <p>Subtotal: ₹<%= order.subtotal.toFixed(2) %></p>
+                    <p>Delivery Fee: ₹<%= order.deliveryFee.toFixed(2) %></p>
+                    <p>GST (5%): ₹<%= order.gstAmount.toFixed(2) %></p>
+                    <h3>Final Total: ₹<%= order.totalPrice.toFixed(2) %></h3>
+                </div>
+            </div>
+            <a href="/made-payment?orderId=<%= order._id %>" class="btn-back">Proceed to Pay : ₹<%= order.totalPrice.toFixed(2) %></a>
+        <% } else { %>
+            <p class="text-red-500 text-lg">Order not found or an error occurred.</p>
+            <a href="/delivery" class="btn-back">Go to Delivery Page</a>
+        <% } %>
+    </div>
+</body>
+</html>

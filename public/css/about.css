@@ -1,0 +1,95 @@
+body {
+  background: url(../img/petr-sevcovic-qE1jxYXiwOA-unsplash.jpg) no-repeat center center fixed;
+  background-size: cover;
+  backdrop-filter: blur(15px); /*blur effect */
+}
+
+
+nav {
+  position: fixed; /* make it stick to top */
+  top: 0;
+  width: 100%;
+  text-align: center;
+  padding: 10px 0;
+  z-index: 1000;
+  backdrop-filter: blur(6px); /* subtle blur */
+}
+
+
+.nav-flex-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  position: absolute;
+  left: 0;
+  width: 100%;
+}
+
+.nav-flex-row li {
+  text-decoration: none;
+  list-style-type: none;
+  padding: 7.25px 7.25px;
+}
+
+.nav-flex-row li a {
+  font-family: 'Big Shoulders Text', cursive;
+  color: #ffffff;
+  font-size: 1.25em;
+  text-transform: uppercase;
+  font-weight: 500;
+  padding: 10px 15px;
+  transition: color 0.3s;
+}
+
+.nav-flex-row li a:hover {
+  color: #ffd700;
+  text-decoration: underline;
+}
+
+
+.nav-item a:hover {
+  color: #ffd700;
+}
+
+.about-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+article{
+  color: black;
+  margin-top: 80px;
+  height: 500px;
+  font-weight: 500;
+  padding-left: 10px;
+  padding-right: 200px;
+}
+
+article h3 {
+  font-size: 24px;
+  font-weight: 900;
+  margin: 20px 0 10px;
+  color: black;
+}
+
+.container {
+  background: rgba(255, 255, 255, 0.85);
+  padding: 30px; /* Reduced padding to make the form smaller */
+  border-radius: 15px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+  width: 80%; /* Reduced width */
+  max-width: 600px; /* Reduced max-width */
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 10px;
+}
+
+.opening-time p span{
+  padding-left: 20px;
+}
+
+.opening-time p a:hover{
+  text-decoration: underline;
+}
