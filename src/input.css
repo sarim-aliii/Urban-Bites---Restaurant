@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom background class */
+.bg-restaurant {
+    background-image: url('/img/petr-sevcovic-qE1jxYXiwOA-unsplash.jpg');
+    background-size: cover;
+    background-position: center;
+}
