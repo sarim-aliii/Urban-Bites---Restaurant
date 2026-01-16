@@ -4,35 +4,156 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Urban Bites</title>
-    <link rel="stylesheet" href="/css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            overflow: hidden;
+        }
+
+        /* Full Screen Background */
+        .bg-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .bg-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Optional: Add a slight scale animation */
+            animation: slowZoom 20s infinite alternate;
+        }
+
+        /* Dark Overlay */
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.4));
+        }
+
+        /* Content Centering */
+        .hero-content {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 20px;
+            
+            /* Entry Animation */
+            opacity: 0;
+            animation: fadeInDown 1.5s ease-out forwards;
+        }
+
+        /* Typography */
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            color: #d4af37; /* Brand Gold */
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            margin-bottom: 0.5rem;
+        }
+        
+        p.subtitle {
+            font-size: 1.5rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 300;
+            margin-bottom: 3rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+
+        /* Buttons */
+        .btn-custom {
+            padding: 12px 40px;
+            border-radius: 50px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            margin: 0 10px;
+            min-width: 160px;
+        }
+
+        .btn-gold {
+            background-color: #d4af37;
+            border: 2px solid #d4af37;
+            color: white;
+        }
+        .btn-gold:hover {
+            background-color: white;
+            border-color: white;
+            color: #d4af37;
+            transform: translateY(-3px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+        .btn-outline:hover {
+            background-color: white;
+            color: black;
+            transform: translateY(-3px);
+        }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            h1 { font-size: 3.5rem; }
+            p.subtitle { font-size: 1rem; }
+            .btn-custom { display: block; margin: 15px auto; width: 80%; }
+        }
+
+        /* Animations */
+        @keyframes slowZoom {
+            from { transform: scale(1); }
+            to { transform: scale(1.1); }
+        }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
 </head>
-<body class="h-screen overflow-hidden">
-    <div class="absolute inset-0 z-0">
-        <img src="/img/petr-sevcovic-qE1jxYXiwOA-unsplash.jpg" class="w-full h-full object-cover animate-pulse-slow" alt="Restaurant Background">
-        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+<body>
+
+    <div class="bg-container">
+        <img src="/img/petr-sevcovic-qE1jxYXiwOA-unsplash.jpg" class="bg-image" alt="Restaurant Ambience">
+        <div class="overlay"></div>
     </div>
 
-    <div class="relative z-10 h-full flex flex-col justify-center items-center text-center px-4">
-        <h1 class="font-['Great_Vibes'] text-7xl md:text-9xl text-gold-500 drop-shadow-lg mb-4 animate-fade-in-down">
-            Urban Bites
-        </h1>
-        <p class="text-white text-xl md:text-2xl font-light tracking-widest uppercase mb-10 drop-shadow-md">
-            Fine Dining & Home Delivery
-        </p>
+    <div class="container hero-content">
+        <h1>Urban Bites</h1>
+        <p class="subtitle">Fine Dining & Home Delivery</p>
         
-        <div class="flex gap-6">
-            <a href="/login">
-                <button class="bg-gold-500 text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:bg-white hover:text-gold-600 transition-all duration-300 transform hover:scale-105 border-2 border-gold-500">
-                    Login
-                </button>
+        <div class="d-flex flex-wrap justify-content-center">
+            <a href="/login" class="text-decoration-none">
+                <button class="btn btn-custom btn-gold">Login</button>
             </a>
-            <a href="/signup">
-                <button class="bg-transparent text-white font-semibold py-3 px-8 rounded-full shadow-lg hover:bg-white hover:text-black transition-all duration-300 transform hover:scale-105 border-2 border-white">
-                    Sign Up
-                </button>
+            <a href="/signup" class="text-decoration-none">
+                <button class="btn btn-custom btn-outline">Sign Up</button>
             </a>
         </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>

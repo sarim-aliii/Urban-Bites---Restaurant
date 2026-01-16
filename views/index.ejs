@@ -3,40 +3,239 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
     <link rel="stylesheet" href="/css/index.css">
+    
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    
     <title>Urban Bites</title>
+
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+
+        /* --- Navigation --- */
+        nav {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            padding: 20px 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+        }
+        .nav-flex-row {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            flex-wrap: wrap;
+        }
+        .nav-item {
+            margin: 0 15px;
+        }
+        .nav-item a {
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+        .nav-item a:hover {
+            color: #d4af37;
+            text-decoration: none;
+        }
+        .nav-item a::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 2px;
+            background: #d4af37;
+            transition: width 0.3s;
+        }
+        .nav-item a:hover::after {
+            width: 100%;
+        }
+
+        /* --- Hero Section --- */
+        .section-intro {
+            position: relative;
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            background-image: url('/img/petr-sevcovic-qE1jxYXiwOA-unsplash.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Parallax effect */
+        }
+        
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* Darkens the image */
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            animation: fadeInDown 1.5s ease-out;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            color: #d4af37;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+            margin-bottom: 20px;
+        }
+        
+        .tagline {
+            font-size: 1.5rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+        }
+
+        .btn-gold {
+            background-color: #d4af37;
+            color: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: bold;
+            border: 2px solid #d4af37;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .btn-gold:hover {
+            background-color: transparent;
+            color: #d4af37;
+            text-decoration: none;
+        }
+
+        /* --- Feature Cards Section --- */
+        .features-section {
+            padding: 60px 0;
+            position: relative;
+            top: -50px; /* Pull up to overlap hero slightly */
+            z-index: 10;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+            height: 100%;
+            border-bottom: 5px solid #d4af37;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: #d4af37;
+            margin-bottom: 20px;
+        }
+        
+        .feature-title {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .btn-link-card {
+            color: #333;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .btn-link-card:hover {
+            color: #d4af37;
+            text-decoration: none;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
 </head>
 <body>
+
     <nav>
         <ul class="nav-flex-row">
-            <li class="nav-item">
-                <a href="/index">Home Page</a>
-            </li>
-            <li class="nav-item">
-                <a href="/reservation">Reservation</a>
-            </li>
-            <li class="nav-item">
-                <a href="/menu">Menu</a>
-            </li>
-            <li class="nav-item">
-                <a href="/delivery">Home Delivery</a>
-            </li>
-            <li class="nav-item">
-                <a href="/about">About</a>
-            </li>
-            <li class="nav-item">
-                <a href="/">Logout</a>
-            </li>
+            <li class="nav-item"><a href="/index">Home Page</a></li>
+            <li class="nav-item"><a href="/reservation">Reservation</a></li>
+            <li class="nav-item"><a href="/menu">Menu</a></li>
+            <li class="nav-item"><a href="/delivery">Home Delivery</a></li>
+            <li class="nav-item"><a href="/about">About</a></li>
+            <li class="nav-item"><a href="/" class="text-warning">Logout</a></li>
         </ul>
     </nav>
 
     <section class="section-intro">
-        <header>
+        <div class="overlay"></div>
+        <div class="hero-content">
             <h1>URBAN BITES</h1>
-        </header>
-        <div class="link-to-book-wrapper">
-            <a class="link-to-book" href="/reservation">Book a Table</a>
+            <p class="tagline">Experience the Taste of Elegance</p>
+            <a class="btn-gold" href="/reservation">Book a Table</a>
+        </div>
+    </section>
+
+    <section class="container features-section">
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="feature-card">
+                    <i class="fas fa-utensils feature-icon"></i>
+                    <h3 class="feature-title">Exquisite Menu</h3>
+                    <p class="text-muted">Explore our diverse menu featuring fresh, locally sourced ingredients and culinary masterpieces.</p>
+                    <a href="/menu" class="btn-link-card">View Menu &rarr;</a>
+                </div>
+            </div>
+            
+            <div class="col-md-4 mb-4">
+                <div class="feature-card">
+                    <i class="fas fa-truck feature-icon"></i>
+                    <h3 class="feature-title">Home Delivery</h3>
+                    <p class="text-muted">Enjoy the Urban Bites experience from the comfort of your own home with our fast delivery.</p>
+                    <a href="/delivery" class="btn-link-card">Order Now &rarr;</a>
+                </div>
+            </div>
+            
+            <div class="col-md-4 mb-4">
+                <div class="feature-card">
+                    <i class="fas fa-info-circle feature-icon"></i>
+                    <h3 class="feature-title">Our Story</h3>
+                    <p class="text-muted">Learn about our heritage, our chefs, and our commitment to sustainable dining.</p>
+                    <a href="/about" class="btn-link-card">Read More &rarr;</a>
+                </div>
+            </div>
         </div>
     </section>
 

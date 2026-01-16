@@ -5,85 +5,263 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Make Payment - Urban Bites</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Merriweather:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
     <link rel="stylesheet" href="/css/madePayment.css">
+
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8f9fa;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px 0;
+        }
+
+        h2, h3 {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .payment-container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            padding: 40px;
+            width: 100%;
+            max-width: 600px;
+            border-top: 5px solid #d4af37;
+        }
+
+        .amount-display {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            margin-bottom: 30px;
+            border: 1px solid #e9ecef;
+        }
+
+        .amount-value {
+            color: #28a745; /* Success Green */
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+
+        /* Interactive Payment Method Cards */
+        .payment-method-card {
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .payment-method-card:hover {
+            border-color: #d4af37;
+            background-color: #fffbf0;
+        }
+
+        .payment-method-card.active {
+            border-color: #d4af37;
+            background-color: #fffbf0;
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.15);
+        }
+
+        .payment-method-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .payment-method-card i {
+            color: #d4af37;
+            margin-right: 10px;
+            width: 25px;
+            text-align: center;
+        }
+
+        /* Form Inputs */
+        .form-control {
+            border-radius: 8px;
+            height: 45px;
+            border-color: #ced4da;
+        }
+
+        .form-control:focus {
+            border-color: #d4af37;
+            box-shadow: 0 0 0 0.2rem rgba(212, 175, 55, 0.25);
+        }
+
+        /* Hidden Details Transition */
+        .payment-details {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            /* Note: 'hidden' class handling depends on your JS, usually display: none */
+        }
+        
+        .hidden {
+            display: none;
+        }
+
+        /* Pay Button */
+        .btn-pay {
+            background-color: #d4af37;
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 15px;
+            border-radius: 50px;
+            border: none;
+            width: 100%;
+            transition: all 0.3s;
+            margin-top: 20px;
+            font-size: 1.1rem;
+        }
+
+        .btn-pay:hover {
+            background-color: #b39025;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+        }
+
+        .btn-back {
+            color: #d4af37;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .btn-back:hover {
+            color: #b39025;
+            text-decoration: none;
+        }
+    </style>
 </head>
-<body class="flex flex-col items-center justify-center min-h-screen p-4">
-    <div class="container">
-        <h2 class="text-3xl font-bold mb-6">Complete Your Payment</h2>
+<body>
 
-        <% if (order) { %>
-            <p class="text-xl font-semibold mb-8 text-gray-700">
-                Amount Due: <span class="text-green-600">₹<%= order.totalPrice.toFixed(2) %></span>
-            </p>
+    <div class="container d-flex justify-content-center">
+        <div class="payment-container">
+            <h2 class="text-center mb-4 font-weight-bold">Complete Your Payment</h2>
 
-            <form id="paymentForm" class="space-y-4">
-                <!-- UPI Payment Method -->
-                <div class="payment-method-card" data-method="upi">
-                    <h3><i class="fas fa-qrcode"></i> Pay with UPI</h3>
-                    <p class="text-sm text-gray-600">Scan QR or enter UPI ID.</p>
-                    <div class="payment-details hidden">
-                        <label for="upiId">UPI ID:</label>
-                        <input type="text" id="upiId" name="upiId" placeholder="yourname@bankupi" class="mb-2" required>
-                        <p class="text-xs text-gray-500">A payment request will be sent to this UPI ID.</p>
-                    </div>
+            <% if (order) { %>
+                <div class="amount-display">
+                    <p class="mb-0 text-muted uppercase tracking-wide">Amount Due</p>
+                    <span class="amount-value">₹<%= order.totalPrice.toFixed(2) %></span>
                 </div>
 
-                <!-- Credit/Debit Card Method -->
-                <div class="payment-method-card" data-method="card">
-                    <h3><i class="fas fa-credit-card"></i> Credit/Debit Card</h3>
-                    <p class="text-sm text-gray-600">Pay securely with your card.</p>
-                    <div class="payment-details hidden">
-                        <label for="cardNumber">Card Number:</label>
-                        <input type="text" id="cardNumber" name="cardNumber" placeholder="XXXX XXXX XXXX XXXX" maxlength="19" required>
-
-                        <div class="grid grid-cols-2 gap-4">
+                <form id="paymentForm">
+                    
+                    <div class="payment-method-card" data-method="upi">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-qrcode fa-lg"></i>
                             <div>
-                                <label for="expiryDate">Expiry Date (MM/YY):</label>
-                                <input type="text" id="expiryDate" name="expiryDate" placeholder="MM/YY" maxlength="5" required>
-                            </div>
-                            <div>
-                                <label for="cvv">CVV:</label>
-                                <input type="text" id="cvv" name="cvv" placeholder="XXX" maxlength="3" required>
+                                <h3 class="mb-0">Pay with UPI</h3>
+                                <small class="text-muted">Scan QR or enter UPI ID</small>
                             </div>
                         </div>
-                        <label for="cardName">Name on Card:</label>
-                        <input type="text" id="cardName" name="cardName" placeholder="Full Name" required>
+                        
+                        <div class="payment-details hidden">
+                            <div class="form-group">
+                                <label for="upiId" class="font-weight-bold small">UPI ID</label>
+                                <input type="text" id="upiId" name="upiId" class="form-control" placeholder="yourname@bankupi">
+                                <small class="form-text text-muted">A payment request will be sent to this ID.</small>
+                            </div>
+                        </div>
                     </div>
+
+                    <div class="payment-method-card" data-method="card">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-credit-card fa-lg"></i>
+                            <div>
+                                <h3 class="mb-0">Credit / Debit Card</h3>
+                                <small class="text-muted">Pay securely with your card</small>
+                            </div>
+                        </div>
+
+                        <div class="payment-details hidden">
+                            <div class="form-group">
+                                <label for="cardNumber" class="font-weight-bold small">Card Number</label>
+                                <input type="text" id="cardNumber" name="cardNumber" class="form-control" placeholder="XXXX XXXX XXXX XXXX" maxlength="19">
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="expiryDate" class="font-weight-bold small">Expiry Date</label>
+                                    <input type="text" id="expiryDate" name="expiryDate" class="form-control" placeholder="MM/YY" maxlength="5">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="cvv" class="font-weight-bold small">CVV</label>
+                                    <input type="password" id="cvv" name="cvv" class="form-control" placeholder="123" maxlength="3">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group mb-0">
+                                <label for="cardName" class="font-weight-bold small">Name on Card</label>
+                                <input type="text" id="cardName" name="cardName" class="form-control" placeholder="Full Name">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="payment-method-card" data-method="netbanking">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-university fa-lg"></i>
+                            <div>
+                                <h3 class="mb-0">Net Banking</h3>
+                                <small class="text-muted">Pay via bank portal</small>
+                            </div>
+                        </div>
+
+                        <div class="payment-details hidden">
+                            <div class="form-group mb-0">
+                                <label for="bankSelect" class="font-weight-bold small">Select Your Bank</label>
+                                <select id="bankSelect" name="bank" class="form-control">
+                                    <option value="">-- Select Bank --</option>
+                                    <option value="sbi">State Bank of India</option>
+                                    <option value="hdfc">HDFC Bank</option>
+                                    <option value="icici">ICICI Bank</option>
+                                    <option value="axis">Axis Bank</option>
+                                    <option value="pnb">Punjab National Bank</option>
+                                    <option value="other">Other Bank</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" id="payNowBtn" class="btn-pay shadow">
+                        Pay ₹<%= order.totalPrice.toFixed(2) %> <i class="fas fa-lock ml-2"></i>
+                    </button>
+                </form>
+
+                <div class="text-center mt-4">
+                    <a href="/order-summary/<%= order._id %>" class="btn-back">
+                        <i class="fas fa-arrow-left mr-2"></i> Back to Order Summary
+                    </a>
                 </div>
 
-                <!-- Net Banking Method -->
-                <div class="payment-method-card" data-method="netbanking">
-                    <h3><i class="fas fa-university"></i> Net Banking</h3>
-                    <p class="text-sm text-gray-600">Pay using your bank's net banking portal.</p>
-                    <div class="payment-details hidden">
-                        <label for="bankSelect">Select Your Bank:</label>
-                        <select id="bankSelect" name="bank" class="w-full px-3 py-2 mt-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:border-transparent" required>
-                            <option value="">-- Select Bank --</option>
-                            <option value="sbi">State Bank of India</option>
-                            <option value="hdfc">HDFC Bank</option>
-                            <option value="icici">ICICI Bank</option>
-                            <option value="axis">Axis Bank</option>
-                            <option value="pnb">Punjab National Bank</option>
-                            <option value="other">Other Bank</option>
-                        </select>
-                    </div>
+            <% } else { %>
+                <div class="text-center py-5">
+                    <i class="fas fa-exclamation-circle text-danger fa-3x mb-3"></i>
+                    <h4 class="text-danger mb-3">Order Not Found</h4>
+                    <p class="text-muted">We couldn't find the details for this order.</p>
+                    <a href="/delivery" class="btn btn-outline-warning mt-2">Return to Delivery Page</a>
                 </div>
-
-                <button type="submit" id="payNowBtn" class="w-full btn-pay mt-8">Pay Now</button>
-            </form>
-
-            <a href="/order-summary/<%= order._id %>" class="text-sm text-gray-600 mt-4 block hover:underline">
-                <i class="fas fa-arrow-left mr-2"></i> Back to Order Summary
-            </a>
-
-        <% } else { %>
-            <p class="text-red-500 text-lg">Order details not found. Please go back to the order page.</p>
-            <a href="/delivery" class="btn-back">Go to Delivery Page</a>
-        <% } %>
+            <% } %>
+        </div>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="/js/madePayment.js"></script>
 </body>
 </html>

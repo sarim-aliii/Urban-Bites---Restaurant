@@ -3,51 +3,245 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/css/reservations.css">
   <title>Reservation - Urban Bites</title>
+  
+  <link rel="stylesheet" href="/css/reservations.css">
+  
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+  <style>
+    body {
+        font-family: 'Roboto', sans-serif;
+        height: 100vh;
+        background-color: #f8f9fa;
+        overflow-x: hidden;
+    }
+
+    /* Background Setup */
+    .reservation-section {
+        background-image: url('/img/petr-sevcovic-qE1jxYXiwOA-unsplash.jpg');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        padding-top: 80px; /* Space for nav */
+    }
+
+    .bg-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6); /* Darkens background for contrast */
+        z-index: 1;
+    }
+
+    /* Navigation */
+    nav {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        padding: 20px 0;
+        background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+    }
+    .nav-flex-row {
+        display: flex;
+        justify-content: center;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    .nav-item {
+        margin: 0 15px;
+    }
+    .nav-item a {
+        text-decoration: none;
+        color: rgba(255, 255, 255, 0.9);
+        font-weight: 500;
+        text-transform: uppercase;
+        font-size: 0.9rem;
+        letter-spacing: 1px;
+        transition: color 0.3s;
+    }
+    .nav-item a:hover {
+        color: #d4af37;
+    }
+
+    /* Reservation Card */
+    .reservation-card {
+        position: relative;
+        z-index: 2;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 15px;
+        padding: 40px;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        width: 100%;
+        max-width: 600px;
+        border-top: 5px solid #d4af37;
+    }
+
+    .form-header h2 {
+        font-family: 'Playfair Display', serif;
+        color: #333;
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+    }
+    
+    .form-header p {
+        color: #777;
+        margin-bottom: 30px;
+    }
+
+    /* Form Styles */
+    .form-group label {
+        font-weight: 500;
+        font-size: 0.9rem;
+        color: #555;
+    }
+
+    .input-group-text {
+        background-color: white;
+        border-right: none;
+        color: #d4af37;
+        border-color: #ced4da;
+    }
+
+    .form-control {
+        border-left: none;
+        height: 45px;
+        border-color: #ced4da;
+    }
+
+    .form-control:focus {
+        box-shadow: none;
+        border-color: #d4af37;
+    }
+    
+    .form-control:focus + .input-group-prepend .input-group-text,
+    .input-group:focus-within .input-group-text {
+        border-color: #d4af37;
+    }
+
+    /* Button */
+    .btn-book {
+        background-color: #d4af37;
+        color: white;
+        border: none;
+        padding: 12px;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        border-radius: 50px;
+        width: 100%;
+        margin-top: 20px;
+        transition: all 0.3s ease;
+    }
+
+    .btn-book:hover {
+        background-color: #b39025;
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+    }
+  </style>
 </head>
 <body>
+
   <nav>
     <ul class="nav-flex-row">
-      <li><a href="/index">Home Page</a></li>
-      <li><a href="/reservation">Reservation</a></li>
-      <li><a href="/menu">Menu</a></li>
-      <li><a href="/delivery">Home Delivery</a></li>
-      <li><a href="/about">About</a></li>
+      <li class="nav-item"><a href="/index">Home Page</a></li>
+      <li class="nav-item"><a href="/reservation">Reservation</a></li>
+      <li class="nav-item"><a href="/menu">Menu</a></li>
+      <li class="nav-item"><a href="/delivery">Home Delivery</a></li>
+      <li class="nav-item"><a href="/about">About</a></li>
     </ul>
   </nav>
 
   <section class="reservation-section">
-    <div class="background-blur">
-      <div class="container">
-        <h2>Book Your Table at Urban Bites</h2>
+    <div class="bg-overlay"></div>
+    
+    <div class="container d-flex justify-content-center">
+      <div class="reservation-card">
+        
+        <div class="form-header text-center">
+          <h2>Book a Table</h2>
+          <p>Reserve your spot at Urban Bites for an unforgettable dining experience.</p>
+        </div>
+
         <form class="reservation-form" method="post" action="/api/reservations">
-          <div>
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required>
+          
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="name">Name</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-user"></i></span>
+                </div>
+                <input type="text" class="form-control" id="name" name="name" placeholder="John Doe" required>
+              </div>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="phone">Phone</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                </div>
+                <input type="tel" class="form-control" id="phone" name="phone" placeholder="9876543210" required>
+              </div>
+            </div>
           </div>
-          <div>
-            <label for="phone">Phone:</label>
-            <input type="tel" id="phone" name="phone" required>
+
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="date">Date</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                </div>
+                <input type="date" class="form-control" id="date" name="date" required>
+              </div>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="time">Time</label>
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fas fa-clock"></i></span>
+                </div>
+                <input type="time" class="form-control" id="time" name="time" required>
+              </div>
+            </div>
           </div>
-          <div>
-            <label for="date">Date:</label>
-            <input type="date" id="date" name="date" required>
+
+          <div class="form-group">
+            <label for="guests">Number of Guests</label>
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><i class="fas fa-users"></i></span>
+              </div>
+              <input type="number" class="form-control" id="guests" name="guests" min="1" max="20" placeholder="2" required>
+            </div>
           </div>
-          <div>
-            <label for="time">Time:</label>
-            <input type="time" id="time" name="time" required>
-          </div>
-          <div>
-            <label for="guests">Guests:</label>
-            <input type="number" id="guests" name="guests" min="1" max="20" required>
-          </div>
-          <br>
-          <button type="submit">Book Now</button>
+
+          <button type="submit" class="btn-book">Confirm Booking</button>
+
         </form>
       </div>
     </div>
   </section>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   <script src="/js/reservation.js"></script>
 </body>
 </html>
