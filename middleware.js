@@ -1,5 +1,5 @@
 const { reservationSchema, orderSchema, userSignupSchema } = require('./schemas'); 
-const ExpressError = require('./utils/ExpressError');
+const ExpressError = require('./util/ExpressError');
 
 
 module.exports.isLoggedIn = (req, res, next) => {

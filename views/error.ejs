@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body class="container mt-5">
+    <div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Something went wrong!</h4>
+        <p><%= err.message %></p>
+        
+        <% if (process.env.NODE_ENV !== "production") { %>
+            <hr>
+            <p class="mb-0"><strong>Stack Trace:</strong></p>
+            <pre><%= err.stack %></pre>
+        <% } %>
+    </div>
+    <a href="/index" class="btn btn-primary">Go Home</a>
+</body>
+</html>

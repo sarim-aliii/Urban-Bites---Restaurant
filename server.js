@@ -12,7 +12,6 @@ const session = require('express-session');
 const flash = require('connect-flash');
 
 // Import Middleware
-// Ensure your middleware.js exports these four functions
 const { 
     validateUserSignup, 
     validateOrder, 
@@ -85,7 +84,6 @@ app.post('/login', passport.authenticate('local', {
 }));
 
 app.get("/forgotPassword", userController.getForgotPassword);
-// Applied catchAsync
 app.post("/forgotPassword", catchAsync(userController.postForgotPassword));
 app.get("/resetPassword/:token", catchAsync(userController.getResetPassword));
 app.post("/resetPassword/:token", catchAsync(userController.postResetPassword));
@@ -99,10 +97,15 @@ app.get('/about', isLoggedIn, flowController.about);
 
 
 // 3. Order Routes
-app.get('/delivery', isLoggedIn, catchAsync(orderController.delivery));
-// Applied validateOrder and catchAsync
+// REMOVED catchAsync here because orderController.delivery is already wrapped in wrapAsync
+app.get('/delivery', isLoggedIn, orderController.delivery);
+
+// KEPT catchAsync here because orderController.submitOrder is NOT wrapped in the controller
 app.post('/submit-order', isLoggedIn, validateOrder, catchAsync(orderController.submitOrder));
-app.get('/order-summary/:id', isLoggedIn, catchAsync(orderController.getOrderSummary));
+
+// REMOVED catchAsync here because orderController.getOrderSummary is already wrapped
+app.get('/order-summary/:id', isLoggedIn, orderController.getOrderSummary);
+
 app.get("/made-payment", isLoggedIn, orderController.madePayment);
 
 
@@ -122,6 +125,7 @@ app.use((err, req, res, next) => {
         return res.status(statusCode).json({ error: err.message });
     }
     
+    // Ensure views/error.ejs exists to avoid "Failed to lookup view" error
     res.status(statusCode).render('error', { err });
 });
 

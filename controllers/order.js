@@ -1,64 +1,59 @@
 const wrapAsync = require('../util/WrapAsync');
 const Order = require('../models/order');
-const { orderSchema } = require('../schemas');
 const mongoose = require('mongoose');
 const Menu = require('../models/menu');
-
 
 const DELIVERY_THRESHOLD = 199;
 const DELIVERY_FEE = 99;
 const GST_RATE = 0.05;
 
-
 module.exports.delivery = wrapAsync(async (req, res) => {
-    // Fetch all items
     const menuItems = await Menu.find({});
 
-    // Group items by category for easier rendering
     const menuByCategory = menuItems.reduce((acc, item) => {
         if (!acc[item.category]) {
             acc[item.category] = {
                 items: [],
-                icon: item.icon // Store icon from the first item in category
+                icon: item.icon
             };
         }
         acc[item.category].items.push(item);
         return acc;
     }, {});
 
-    // Pass the grouped menu to the template
-    res.render("delivery.ejs", { menuByCategory });
+    // FIXED: Correct view path
+    res.render("delivery", { menuByCategory });
 });
-
 
 module.exports.submitOrder = async (req, res) => {
     const { name, phone, address, items } = req.body;
 
     // 1. Basic Validation
-    if (!name || !phone || !address || !Array.isArray(items) || items.length === 0) {
-        return res.status(400).json({ message: "Missing customer details or items." });
+    if (!name || !phone || !address || !items) {
+        req.flash('error', 'Missing customer details or items.');
+        return res.redirect('/delivery');
     }
 
     try {
+        // FIXED: Ensure items is an array (it might be a string if only 1 item is selected)
+        const itemNames = Array.isArray(items) ? items : [items];
+        
         let calculatedSubtotal = 0;
         const finalOrderItems = [];
 
         // 2. Re-fetch authentic prices from the database
-        // We iterate through the requested items and look them up
-        for (const item of items) {
-            // Find the item in the DB by name (or ID if you refactored to IDs)
-            const dbItem = await Menu.findOne({ name: item.name });
+        for (const itemName of itemNames) {
+            // FIXED: We now search using itemName directly (since we fixed the value in EJS)
+            const dbItem = await Menu.findOne({ name: itemName });
 
             if (!dbItem) {
-                console.error(`Item not found in menu: ${item.name}`);
-                // You might choose to ignore the item or fail the order
-                return res.status(400).json({ message: `Item '${item.name}' is no longer available.` });
+                console.error(`Item not found in menu: ${itemName}`);
+                req.flash('error', `Item '${itemName}' is no longer available.`);
+                return res.redirect('/delivery');
             }
 
-            // Trust ONLY the database price
             calculatedSubtotal += dbItem.price; 
             
-            // Add to our verified list
             finalOrderItems.push({
                 name: dbItem.name,
                 price: dbItem.price 
@@ -89,14 +84,16 @@ module.exports.submitOrder = async (req, res) => {
         await newOrder.save();
         console.log("Secure Order Placed:", newOrder._id);
 
-        return res.status(200).json({ message: "Order placed successfully!", order: newOrder });
+        // FIXED: Redirect to summary instead of sending JSON
+        req.flash('success', 'Order placed successfully!');
+        res.redirect(`/order-summary/${newOrder._id}`);
 
     } catch (error) {
         console.error("Error processing secure order:", error);
-        return res.status(500).json({ message: "Server error processing order." });
+        req.flash('error', 'Server error processing order.');
+        res.redirect('/delivery');
     }
 };
-
 
 module.exports.getOrderSummary = wrapAsync(async (req, res) => {
     const { id } = req.params; 
@@ -114,7 +111,8 @@ module.exports.getOrderSummary = wrapAsync(async (req, res) => {
             return res.redirect('/delivery');
         }
 
-        res.render("../views/orderSummary.ejs", { order });
+        // FIXED: Correct view path
+        res.render("orderSummary", { order });
     } 
     catch (error) {
         console.error("Error fetching order summary:", error);
@@ -122,7 +120,6 @@ module.exports.getOrderSummary = wrapAsync(async (req, res) => {
         res.redirect('/delivery'); 
     }
 });
-
 
 module.exports.madePayment = wrapAsync(async (req, res) => {
     const orderId = req.query.orderId;
@@ -139,5 +136,6 @@ module.exports.madePayment = wrapAsync(async (req, res) => {
         return res.redirect('/delivery');
     }
 
-    res.render("../views/madePayment.ejs", { order }); 
+    // FIXED: Correct view path
+    res.render("madePayment", { order }); 
 });
