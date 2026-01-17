@@ -1,140 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+
   <link rel="stylesheet" href="/css/delivery.css">
-  
+
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
-  
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@300;400;500&display=swap"
+    rel="stylesheet">
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
   <title>Home Delivery - Urban Bites</title>
 
   <style>
     body {
-        font-family: 'Roboto', sans-serif;
-        background-color: #f8f9fa; /* Light background if image fails */
-        color: #333;
+      font-family: 'Roboto', sans-serif;
+      background-color: #f8f9fa;
+      /* Light background if image fails */
+      color: #333;
     }
-    h1, h2, h3, h4 {
-        font-family: 'Playfair Display', serif;
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-family: 'Playfair Display', serif;
     }
-    
+
     /* Form Styles */
     .form-control {
-        border-radius: 8px;
-        border: 1px solid #ced4da;
-        padding: 10px 15px;
+      border-radius: 8px;
+      border: 1px solid #ced4da;
+      padding: 10px 15px;
     }
+
     .form-control:focus {
-        border-color: #d4af37;
-        box-shadow: 0 0 0 0.2rem rgba(212, 175, 55, 0.25);
+      border-color: #d4af37;
+      box-shadow: 0 0 0 0.2rem rgba(212, 175, 55, 0.25);
     }
-    
+
     /* Menu Item Card Style */
     .menu-card {
-        background: white;
-        border-radius: 10px;
-        padding: 15px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        transition: all 0.3s ease;
-        border: 1px solid transparent;
-        height: 100%;
-        cursor: pointer;
+      background: white;
+      border-radius: 10px;
+      padding: 15px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+      border: 1px solid transparent;
+      height: 100%;
+      cursor: pointer;
     }
+
     .menu-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        border-color: #d4af37;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      border-color: #d4af37;
     }
+
     /* Hide default checkbox and style label */
     .menu-item-checkbox {
-        transform: scale(1.2);
-        margin-right: 10px;
-        accent-color: #d4af37;
+      transform: scale(1.2);
+      margin-right: 10px;
+      accent-color: #d4af37;
     }
+
     .price-tag {
-        font-weight: bold;
-        color: #d4af37;
-        font-size: 1.1rem;
+      font-weight: bold;
+      color: #d4af37;
+      font-size: 1.1rem;
     }
 
     /* Category Headers */
     .category-header {
-        border-bottom: 2px solid #d4af37;
-        padding-bottom: 10px;
-        margin-bottom: 20px;
-        margin-top: 30px;
-        display: flex;
-        align-items: center;
+      border-bottom: 2px solid #d4af37;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+      margin-top: 30px;
+      display: flex;
+      align-items: center;
     }
+
     .category-icon {
-        color: #d4af37;
-        margin-right: 10px;
-        font-size: 1.5rem;
+      color: #d4af37;
+      margin-right: 10px;
+      font-size: 1.5rem;
     }
 
     /* Sticky Summary Card */
     .summary-card {
-        position: sticky;
-        top: 20px;
-        background: white;
-        padding: 25px;
-        border-radius: 15px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        border-top: 5px solid #d4af37;
+      position: sticky;
+      top: 20px;
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      border-top: 5px solid #d4af37;
     }
+
     .btn-checkout {
-        background-color: #d4af37;
-        border: none;
-        color: white;
-        font-weight: bold;
-        padding: 12px;
-        border-radius: 30px;
-        width: 100%;
-        transition: background 0.3s;
-        text-transform: uppercase;
-        letter-spacing: 1px;
+      background-color: #d4af37;
+      border: none;
+      color: white;
+      font-weight: bold;
+      padding: 12px;
+      border-radius: 30px;
+      width: 100%;
+      transition: background 0.3s;
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
+
     .btn-checkout:hover {
-        background-color: #b39025;
-        color: white;
+      background-color: #b39025;
+      color: white;
     }
-    
+
     /* Navigation Style Override (Optional matching) */
     nav {
-        background: rgba(255, 255, 255, 0.95);
-        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        padding: 15px 0;
+      background: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      padding: 15px 0;
     }
+
     .nav-flex-row {
-        display: flex;
-        justify-content: center;
-        list-style: none;
-        padding: 0;
-        margin: 0;
+      display: flex;
+      justify-content: center;
+      list-style: none;
+      padding: 0;
+      margin: 0;
     }
+
     .nav-flex-row li {
-        margin: 0 15px;
+      margin: 0 15px;
     }
+
     .nav-flex-row a {
-        text-decoration: none;
-        color: #333;
-        font-weight: 500;
-        text-transform: uppercase;
-        font-size: 0.9rem;
-        letter-spacing: 1px;
-        transition: color 0.3s;
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      transition: color 0.3s;
     }
+
     .nav-flex-row a:hover {
-        color: #d4af37;
+      color: #d4af37;
     }
   </style>
 </head>
+
 <body>
 
   <nav class="sticky-top">
@@ -157,139 +177,97 @@
 
       <form id="orderForm" action="/submit-order" method="POST">
         <div class="row">
-          
+
           <div class="col-lg-8">
-            
+
             <div class="card shadow-sm border-0 mb-5">
               <div class="card-body p-4">
                 <h4 class="mb-4"><i class="fas fa-user-circle mr-2 text-warning"></i>Your Details</h4>
                 <div class="form-row">
                   <div class="form-group col-md-6">
                     <label for="customerName">Name</label>
-                    <input type="text" class="form-control" id="customerName" name="name" placeholder="John Doe" required>
+                    <input type="text" class="form-control" id="customerName" name="name" placeholder="John Doe"
+                      required>
                   </div>
                   <div class="form-group col-md-6">
                     <label for="customerPhone">Phone Number</label>
-                    <input type="tel" class="form-control" id="customerPhone" name="phone" pattern="^[0-9]{10}$" title="Enter a valid 10-digit phone number" placeholder="9876543210" required>
+                    <input type="tel" class="form-control" id="customerPhone" name="phone" pattern="^[0-9]{10}$"
+                      title="Enter a valid 10-digit phone number" placeholder="9876543210" required>
                   </div>
                 </div>
                 <div class="form-group">
                   <label for="customerAddress">Delivery Address</label>
-                  <textarea class="form-control" id="customerAddress" name="address" rows="2" placeholder="Street address, Apt, City..." required></textarea>
+                  <textarea class="form-control" id="customerAddress" name="address" rows="2"
+                    placeholder="Street address, Apt, City..." required></textarea>
                 </div>
               </div>
             </div>
 
             <div class="menu-selection">
-              
-              <h3 class="category-header"><i class="fas fa-bread-slice category-icon"></i> Appetizers</h3>
-              <div class="row">
-                <div class="col-md-6 mb-3"><div class="menu-card d-flex align-items-center justify-content-between"><label class="m-0 d-flex align-items-center w-100"><input type="checkbox" class="menu-item menu-item-checkbox" name="items" value="Bruschetta - ₹800" data-price="800"><span>Bruschetta</span></label><span class="price-tag">₹800</span></div></div>
-                <div class="col-md-6 mb-3"><div class="menu-card d-flex align-items-center justify-content-between"><label class="m-0 d-flex align-items-center w-100"><input type="checkbox" class="menu-item menu-item-checkbox" name="items" value="Stuffed Mushrooms - ₹1000" data-price="1000"><span>Stuffed Mushrooms</span></label><span class="price-tag">₹1000</span></div></div>
-                <div class="col-md-6 mb-3"><div class="menu-card d-flex align-items-center justify-content-between"><label class="m-0 d-flex align-items-center w-100"><input type="checkbox" class="menu-item menu-item-checkbox" name="items" value="Garlic Bread - ₹600" data-price="600"><span>Garlic Bread</span></label><span class="price-tag">₹600</span></div></div>
-                <div class="col-md-6 mb-3"><div class="menu-card d-flex align-items-center justify-content-between"><label class="m-0 d-flex align-items-center w-100"><input type="checkbox" class="menu-item menu-item-checkbox" name="items" value="Caprese Salad - ₹900" data-price="900"><span>Caprese Salad</span></label><span class="price-tag">₹900</span></div></div>
-                <div class="col-md-6 mb-3"><div class="menu-card d-flex align-items-center justify-content-between"><label class="m-0 d-flex align-items-center w-100"><input type="checkbox" class="menu-item menu-item-checkbox" name="items" value="Spinach Artichoke Dip - ₹1200" data-price="1200"><span>Spinach Artichoke Dip</span></label><span class="price-tag">₹1200</span></div></div>
-              </div>
 
-              <h3 class="category-header"><i class="fas fa-leaf category-icon"></i> Soups & Salads</h3>
-              <div class="row">
-                <div class="col-md-6 mb-3"><div class="menu-card d-flex align-items-center justify-content-between"><label class="m-0 d-flex align-items-center w-100"><input type="checkbox" class="menu-item menu-item-checkbox" name="items" value="Tomato Basil Soup - ₹700" data-price="700"><span>Tomato Basil Soup</span></label><span class="price-tag">₹700</span></div></div>
-                <div class="col-md-6 mb-3"><div class="menu-card d-flex align-items-center justify-content-between"><label class="m-0 d-flex align-items-center w-100"><input type="checkbox" class="menu-item menu-item-checkbox" name="items" value="Caesar Salad - ₹800" data-price="800"><span>Caesar Salad</span></label><span class="price-tag">₹800</span></div></div>
-                <div class="col-md-6 mb-3"><div class="menu-card d-flex align-items-center justify-content-between"><label class="m-0 d-flex align-items-center w-100"><input type="checkbox" class="menu-item menu-item-checkbox" name="items" value="Greek Salad - ₹1000" data-price="1000"><span>Greek Salad</span></label><span class="price-tag">₹1000</span></div></div>
-                <div class="col-md-6 mb-3"><div class="menu-card d-flex align-items-center justify-content-between"><label class="m-0 d-flex align-items-center w-100"><input type="checkbox" class="menu-item menu-item-checkbox" name="items" value="Minestrone Soup - ₹750" data-price="750"><span>Minestrone Soup</span></label><span class="price-tag">₹750</span></div></div>
-                <div class="col-md-6 mb-3"><div class="menu-card d-flex align-items-center justify-content-between"><label class="m-0 d-flex align-items-center w-100"><input type="checkbox" class="menu-item menu-item-checkbox" name="items" value="Chicken Caesar Salad - ₹1200" data-price="1200"><span>Chicken Caesar Salad</span></label><span class="price-tag">₹1200</span></div></div>
-              </div>
+              <% for (const [categoryName, data] of Object.entries(menuByCategory)) { %>
 
-              <h3 class="category-header"><i class="fas fa-utensils category-icon"></i> Main Courses</h3>
-              <div class="row">
-                <div class="col-md-6 mb-3"><div class="menu-card d-flex align-items-center justify-content-between"><label class="m-0 d-flex align-items-center w-100"><input type="checkbox" class="menu-item menu-item-checkbox" name="items" value="Grilled Salmon - ₹1800" data-price="1800"><span>Grilled Salmon</span></label><span class="price-tag">₹1800</span></div></div>
-                <div class="col-md-6 mb-3"><div class="menu-card d-flex align-items-center justify-content-between"><label class="m-0 d-flex align-items-center w-100"><input type="checkbox" class="menu-item menu-item-checkbox" name="items" value="Pasta Carbonara - ₹1500" data-price="1500"><span>Pasta Carbonara</span></label><span class="price-tag">₹1500</span></div></div>
-                <div class="col-md-6 mb-3"><div class="menu-card d-flex align-items-center justify-content-between"><label class="m-0 d-flex align-items-center w-100"><input type="checkbox" class="menu-item menu-item-checkbox" name="items" value="Chicken Parmesan - ₹1600" data-price="1600"><span>Chicken Parmesan</span></label><span class="price-tag">₹1600</span></div></div>
-                <div class="col-md-6 mb-3"><div class="menu-card d-flex align-items-center justify-content-between"><label class="m-0 d-flex align-items-center w-100"><input type="checkbox" class="menu-item menu-item-checkbox" name="items" value="Chicken Lasagna - ₹1700" data-price="1700"><span>Chicken Lasagna</span></label><span class="price-tag">₹1700</span></div></div>
-                <div class="col-md-6 mb-3"><div class="menu-card d-flex align-items-center justify-content-between"><label class="m-0 d-flex align-items-center w-100"><input type="checkbox" class="menu-item menu-item-checkbox" name="items" value="Vegetable Stir-Fry - ₹1400" data-price="1400"><span>Vegetable Stir-Fry</span></label><span class="price-tag">₹1400</span></div></div>
-              </div>
+                <h3 class="category-header">
+                  <i class="<%= data.icon %> category-icon"></i>
+                  <%= categoryName %>
+                </h3>
 
-              <h3 class="category-header"><i class="fas fa-pizza-slice category-icon"></i> Pizzas</h3>
-              <div class="row">
-                <div class="col-md-6 mb-3"><div class="menu-card d-flex align-items-center justify-content-between"><label class="m-0 d-flex align-items-center w-100"><input type="checkbox" class="menu-item menu-item-checkbox" name="items" value="Margherita - ₹1200" data-price="1200"><span>Margherita</span></label><span class="price-tag">₹1200</span></div></div>
-                <div class="col-md-6 mb-3"><div class="menu-card d-flex align-items-center justify-content-between"><label class="m-0 d-flex align-items-center w-100"><input type="checkbox" class="menu-item menu-item-checkbox" name="items" value="Pepperoni - ₹1400" data-price="1400"><span>Pepperoni</span></label><span class="price-tag">₹1400</span></div></div>
-                <div class="col-md-6 mb-3"><div class="menu-card d-flex align-items-center justify-content-between"><label class="m-0 d-flex align-items-center w-100"><input type="checkbox" class="menu-item menu-item-checkbox" name="items" value="BBQ Chicken - ₹1500" data-price="1500"><span>BBQ Chicken</span></label><span class="price-tag">₹1500</span></div></div>
-                <div class="col-md-6 mb-3"><div class="menu-card d-flex align-items-center justify-content-between"><label class="m-0 d-flex align-items-center w-100"><input type="checkbox" class="menu-item menu-item-checkbox" name="items" value="Vegetarian - ₹1300" data-price="1300"><span>Vegetarian</span></label><span class="price-tag">₹1300</span></div></div>
-                <div class="col-md-6 mb-3"><div class="menu-card d-flex align-items-center justify-content-between"><label class="m-0 d-flex align-items-center w-100"><input type="checkbox" class="menu-item menu-item-checkbox" name="items" value="Four Cheese - ₹1400" data-price="1400"><span>Four Cheese</span></label><span class="price-tag">₹1400</span></div></div>
-              </div>
+                <div class="row">
+                  <% data.items.forEach(item=> { %>
+                    <div class="col-md-6 mb-3">
+                      <div class="menu-card d-flex align-items-center justify-content-between">
+                        <label class="m-0 d-flex align-items-center w-100">
+                          <input type="checkbox" class="menu-item menu-item-checkbox" name="items"
+                            value="<%= item.name %> - ₹<%= item.price %>" data-price="<%= item.price %>">
+                          <span>
+                            <%= item.name %>
+                          </span>
+                        </label>
+                        <span class="price-tag">₹<%= item.price %></span>
+                      </div>
+                    </div>
+                    <% }); %>
+                </div>
 
-              <h3 class="category-header"><i class="fas fa-hamburger category-icon"></i> Burgers & Sandwiches</h3>
-              <div class="row">
-                <div class="col-md-6 mb-3"><div class="menu-card d-flex align-items-center justify-content-between"><label class="m-0 d-flex align-items-center w-100"><input type="checkbox" class="menu-item menu-item-checkbox" name="items" value="Classic Cheeseburger - ₹1200" data-price="1200"><span>Classic Cheeseburger</span></label><span class="price-tag">₹1200</span></div></div>
-                <div class="col-md-6 mb-3"><div class="menu-card d-flex align-items-center justify-content-between"><label class="m-0 d-flex align-items-center w-100"><input type="checkbox" class="menu-item menu-item-checkbox" name="items" value="Bacon Avocado Burger - ₹1350" data-price="1350"><span>Bacon Avocado Burger</span></label><span class="price-tag">₹1350</span></div></div>
-                <div class="col-md-6 mb-3"><div class="menu-card d-flex align-items-center justify-content-between"><label class="m-0 d-flex align-items-center w-100"><input type="checkbox" class="menu-item menu-item-checkbox" name="items" value="Grilled Chicken Sandwich - ₹1100" data-price="1100"><span>Grilled Chicken Sandwich</span></label><span class="price-tag">₹1100</span></div></div>
-                <div class="col-md-6 mb-3"><div class="menu-card d-flex align-items-center justify-content-between"><label class="m-0 d-flex align-items-center w-100"><input type="checkbox" class="menu-item menu-item-checkbox" name="items" value="BLT Sandwich - ₹1000" data-price="1000"><span>BLT Sandwich</span></label><span class="price-tag">₹1000</span></div></div>
-              </div>
-              
-              <h3 class="category-header"><i class="fas fa-carrot category-icon"></i> Sides</h3>
-              <div class="row">
-                <div class="col-md-6 mb-3"><div class="menu-card d-flex align-items-center justify-content-between"><label class="m-0 d-flex align-items-center w-100"><input type="checkbox" class="menu-item menu-item-checkbox" name="items" value="French Fries - ₹400" data-price="400"><span>French Fries</span></label><span class="price-tag">₹400</span></div></div>
-                <div class="col-md-6 mb-3"><div class="menu-card d-flex align-items-center justify-content-between"><label class="m-0 d-flex align-items-center w-100"><input type="checkbox" class="menu-item menu-item-checkbox" name="items" value="Sweet Potato Fries - ₹500" data-price="500"><span>Sweet Potato Fries</span></label><span class="price-tag">₹500</span></div></div>
-                <div class="col-md-6 mb-3"><div class="menu-card d-flex align-items-center justify-content-between"><label class="m-0 d-flex align-items-center w-100"><input type="checkbox" class="menu-item menu-item-checkbox" name="items" value="Coleslaw - ₹300" data-price="300"><span>Coleslaw</span></label><span class="price-tag">₹300</span></div></div>
-                <div class="col-md-6 mb-3"><div class="menu-card d-flex align-items-center justify-content-between"><label class="m-0 d-flex align-items-center w-100"><input type="checkbox" class="menu-item menu-item-checkbox" name="items" value="Onion Rings - ₹450" data-price="450"><span>Onion Rings</span></label><span class="price-tag">₹450</span></div></div>
-                <div class="col-md-6 mb-3"><div class="menu-card d-flex align-items-center justify-content-between"><label class="m-0 d-flex align-items-center w-100"><input type="checkbox" class="menu-item menu-item-checkbox" name="items" value="Side Salad - ₹500" data-price="500"><span>Side Salad</span></label><span class="price-tag">₹500</span></div></div>
-              </div>
-
-              <h3 class="category-header"><i class="fas fa-ice-cream category-icon"></i> Desserts</h3>
-              <div class="row">
-                <div class="col-md-6 mb-3"><div class="menu-card d-flex align-items-center justify-content-between"><label class="m-0 d-flex align-items-center w-100"><input type="checkbox" class="menu-item menu-item-checkbox" name="items" value="Cheesecake - ₹700" data-price="700"><span>Cheesecake</span></label><span class="price-tag">₹700</span></div></div>
-                <div class="col-md-6 mb-3"><div class="menu-card d-flex align-items-center justify-content-between"><label class="m-0 d-flex align-items-center w-100"><input type="checkbox" class="menu-item menu-item-checkbox" name="items" value="Tiramisu - ₹800" data-price="800"><span>Tiramisu</span></label><span class="price-tag">₹800</span></div></div>
-                <div class="col-md-6 mb-3"><div class="menu-card d-flex align-items-center justify-content-between"><label class="m-0 d-flex align-items-center w-100"><input type="checkbox" class="menu-item menu-item-checkbox" name="items" value="Chocolate Lava Cake - ₹900" data-price="900"><span>Chocolate Lava Cake</span></label><span class="price-tag">₹900</span></div></div>
-                <div class="col-md-6 mb-3"><div class="menu-card d-flex align-items-center justify-content-between"><label class="m-0 d-flex align-items-center w-100"><input type="checkbox" class="menu-item menu-item-checkbox" name="items" value="Ice Cream Sundae - ₹600" data-price="600"><span>Ice Cream Sundae</span></label><span class="price-tag">₹600</span></div></div>
-                <div class="col-md-6 mb-3"><div class="menu-card d-flex align-items-center justify-content-between"><label class="m-0 d-flex align-items-center w-100"><input type="checkbox" class="menu-item menu-item-checkbox" name="items" value="Apple Pie - ₹700" data-price="700"><span>Apple Pie</span></label><span class="price-tag">₹700</span></div></div>
-              </div>
-
-              <h3 class="category-header"><i class="fas fa-glass-martini-alt category-icon"></i> Beverages</h3>
-              <div class="row">
-                <div class="col-md-6 mb-3"><div class="menu-card d-flex align-items-center justify-content-between"><label class="m-0 d-flex align-items-center w-100"><input type="checkbox" class="menu-item menu-item-checkbox" name="items" value="Soft Drinks - ₹250" data-price="250"><span>Soft Drinks</span></label><span class="price-tag">₹250</span></div></div>
-                <div class="col-md-6 mb-3"><div class="menu-card d-flex align-items-center justify-content-between"><label class="m-0 d-flex align-items-center w-100"><input type="checkbox" class="menu-item menu-item-checkbox" name="items" value="Fresh Lemonade - ₹350" data-price="350"><span>Fresh Lemonade</span></label><span class="price-tag">₹350</span></div></div>
-                <div class="col-md-6 mb-3"><div class="menu-card d-flex align-items-center justify-content-between"><label class="m-0 d-flex align-items-center w-100"><input type="checkbox" class="menu-item menu-item-checkbox" name="items" value="Iced Tea - ₹300" data-price="300"><span>Iced Tea</span></label><span class="price-tag">₹300</span></div></div>
-                <div class="col-md-6 mb-3"><div class="menu-card d-flex align-items-center justify-content-between"><label class="m-0 d-flex align-items-center w-100"><input type="checkbox" class="menu-item menu-item-checkbox" name="items" value="Coffee - ₹250" data-price="250"><span>Coffee</span></label><span class="price-tag">₹250</span></div></div>
-                <div class="col-md-6 mb-3"><div class="menu-card d-flex align-items-center justify-content-between"><label class="m-0 d-flex align-items-center w-100"><input type="checkbox" class="menu-item menu-item-checkbox" name="items" value="Espresso - ₹300" data-price="300"><span>Espresso</span></label><span class="price-tag">₹300</span></div></div>
-              </div>
+                <% } %>
 
             </div>
-          </div>
 
-          <div class="col-lg-4">
-            <div class="summary-card">
-              <h3 class="mb-4">Order Summary</h3>
-              <div class="d-flex justify-content-between mb-2">
-                <span class="text-muted">Subtotal:</span>
-                <span class="font-weight-bold">₹<span id="totalPrice">0.00</span></span>
-              </div>
-              <div class="d-flex justify-content-between mb-2">
-                <span class="text-muted">Delivery Fee:</span>
-                <span>₹<span id="deliveryFee">0.00</span></span>
-              </div>
-              <div class="d-flex justify-content-between mb-3">
-                <span class="text-muted">GST (5%):</span>
-                <span>₹<span id="gstAmount">0.00</span></span>
-              </div>
-              <hr>
-              <div class="d-flex justify-content-between mb-4">
-                <span class="h5 font-weight-bold">Final Total:</span>
-                <span class="h4 font-weight-bold text-success">₹<span id="finalTotal">0.00</span></span>
-              </div>
+            <div class="col-lg-4">
+              <div class="summary-card">
+                <h3 class="mb-4">Order Summary</h3>
+                <div class="d-flex justify-content-between mb-2">
+                  <span class="text-muted">Subtotal:</span>
+                  <span class="font-weight-bold">₹<span id="totalPrice">0.00</span></span>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                  <span class="text-muted">Delivery Fee:</span>
+                  <span>₹<span id="deliveryFee">0.00</span></span>
+                </div>
+                <div class="d-flex justify-content-between mb-3">
+                  <span class="text-muted">GST (5%):</span>
+                  <span>₹<span id="gstAmount">0.00</span></span>
+                </div>
+                <hr>
+                <div class="d-flex justify-content-between mb-4">
+                  <span class="h5 font-weight-bold">Final Total:</span>
+                  <span class="h4 font-weight-bold text-success">₹<span id="finalTotal">0.00</span></span>
+                </div>
 
-              <input type="hidden" id="totalPriceInput" name="totalPrice">
+                <input type="hidden" id="totalPriceInput" name="totalPrice">
 
-              <button type="submit" class="btn-checkout shadow">
-                Checkout &rarr;
-              </button>
+                <button type="submit" class="btn-checkout shadow">
+                  Checkout &rarr;
+                </button>
+              </div>
             </div>
+
           </div>
-          
-        </div>
       </form>
     </div>
   </section>
 
   <script src="/js/delivery.js"></script>
 </body>
+
 </html>

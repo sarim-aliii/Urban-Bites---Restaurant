@@ -1,49 +1,99 @@
-// controllers/order.js
 const wrapAsync = require('../util/WrapAsync');
 const Order = require('../models/order');
+const { orderSchema } = require('../schemas');
 const mongoose = require('mongoose');
+const Menu = require('../models/menu');
+
+
+const DELIVERY_THRESHOLD = 199;
+const DELIVERY_FEE = 99;
+const GST_RATE = 0.05;
+
 
 module.exports.delivery = wrapAsync(async (req, res) => {
-    const orders = await Order.find();
-    res.render("../views/delivery.ejs", { orders });
+    // Fetch all items
+    const menuItems = await Menu.find({});
+
+    // Group items by category for easier rendering
+    const menuByCategory = menuItems.reduce((acc, item) => {
+        if (!acc[item.category]) {
+            acc[item.category] = {
+                items: [],
+                icon: item.icon // Store icon from the first item in category
+            };
+        }
+        acc[item.category].items.push(item);
+        return acc;
+    }, {});
+
+    // Pass the grouped menu to the template
+    res.render("delivery.ejs", { menuByCategory });
 });
 
 
 module.exports.submitOrder = async (req, res) => {
-    const { name, phone, address, items, subtotal, deliveryFee, gstAmount, totalPrice } = req.body;
+    const { name, phone, address, items } = req.body;
 
-    if (!name || !phone || !address || !Array.isArray(items) || items.length === 0 ||
-        subtotal === undefined || deliveryFee === undefined || gstAmount === undefined || totalPrice === undefined) {
-        console.error("Invalid input data:", req.body);
-        return res.status(400).json({ message: "Invalid input. All customer details, items, and price calculations are required." });
-    }
-
-    const areItemsValid = items.every(item => typeof item.name === 'string' && typeof item.price === 'number');
-    if (!areItemsValid) {
-        console.error("Invalid item data in array:", items);
-        return res.status(400).json({ message: "Invalid item data format." });
+    // 1. Basic Validation
+    if (!name || !phone || !address || !Array.isArray(items) || items.length === 0) {
+        return res.status(400).json({ message: "Missing customer details or items." });
     }
 
     try {
+        let calculatedSubtotal = 0;
+        const finalOrderItems = [];
+
+        // 2. Re-fetch authentic prices from the database
+        // We iterate through the requested items and look them up
+        for (const item of items) {
+            // Find the item in the DB by name (or ID if you refactored to IDs)
+            const dbItem = await Menu.findOne({ name: item.name });
+
+            if (!dbItem) {
+                console.error(`Item not found in menu: ${item.name}`);
+                // You might choose to ignore the item or fail the order
+                return res.status(400).json({ message: `Item '${item.name}' is no longer available.` });
+            }
+
+            // Trust ONLY the database price
+            calculatedSubtotal += dbItem.price; 
+            
+            // Add to our verified list
+            finalOrderItems.push({
+                name: dbItem.name,
+                price: dbItem.price 
+            });
+        }
+
+        // 3. Server-side Calculation Logic
+        let currentDeliveryFee = 0;
+        if (calculatedSubtotal > 0 && calculatedSubtotal < DELIVERY_THRESHOLD) {
+            currentDeliveryFee = DELIVERY_FEE;
+        }
+
+        const gstAmount = calculatedSubtotal * GST_RATE;
+        const total = calculatedSubtotal + currentDeliveryFee + gstAmount;
+
+        // 4. Create Order with Verified Values
         const newOrder = new Order({
             name,
             phone,
             address,
-            items,
-            subtotal: parseFloat(subtotal),
-            deliveryFee: parseFloat(deliveryFee),
-            gstAmount: parseFloat(gstAmount),
-            totalPrice: parseFloat(totalPrice)
+            items: finalOrderItems,
+            subtotal: calculatedSubtotal,
+            deliveryFee: currentDeliveryFee,
+            gstAmount: gstAmount,
+            totalPrice: total
         });
 
         await newOrder.save();
-        console.log("Order saved successfully:", newOrder);
+        console.log("Secure Order Placed:", newOrder._id);
 
         return res.status(200).json({ message: "Order placed successfully!", order: newOrder });
-    }
-    catch (error) {
-        console.error("Error saving order:", error);
-        return res.status(500).json({ message: "Failed to place order due to a server error. Please try again later." });
+
+    } catch (error) {
+        console.error("Error processing secure order:", error);
+        return res.status(500).json({ message: "Server error processing order." });
     }
 };
 

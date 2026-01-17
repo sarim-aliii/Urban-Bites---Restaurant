@@ -1,6 +1,7 @@
 const User = require("../models/user");
-const crypto = require('crypto'); // Built-in Node.js module for generating tokens
-const nodemailer = require('nodemailer'); // For sending emails
+const crypto = require('crypto'); 
+const nodemailer = require('nodemailer'); 
+const { userSignupSchema } = require('../schemas');
 
 
 const transporter = nodemailer.createTransport({
@@ -19,6 +20,14 @@ module.exports.getSignup = (req, res) => {
 
 module.exports.postSignup = async (req, res, next) => {
   try{
+    // Validate request body
+    const { error } = userSignupSchema.validate(req.body);
+    if (error) {
+        const msg = error.details.map(el => el.message).join(',');
+        req.flash('error', msg);
+        return res.redirect('/signup');
+    }
+
     let {username, email, password} = req.body;
     let newUser = new User({email, username});
     const registeredUser = await User.register(newUser, password);
@@ -26,7 +35,7 @@ module.exports.postSignup = async (req, res, next) => {
     req.login(registeredUser, err => {
         if (err){
           console.error("Error during auto-login after signup:", err); 
-          req.flash('error', 'Account created, but failed to log in automatically. Please try logging in.'); 
+          req.flash('error', 'Account created, but failed to log in automatically.'); 
           return res.redirect('/login');
         }
         req.flash('success', 'Welcome to Urban Bites!');
@@ -34,28 +43,27 @@ module.exports.postSignup = async (req, res, next) => {
     });
   }
   catch(err){
-    console.error("Error during signup process (before auto-login):", err);
-    let errorMessage = "Failed to create account. Please try again.";
-
+    // ... existing error handling ...
+    console.error("Error during signup process:", err);
+    let errorMessage = "Failed to create account.";
     if (err.name === 'MongoServerError' && err.code === 11000) {
         errorMessage = "Username or email already exists.";
     } 
-    else if (err.name === 'UserExistsError') {
-        errorMessage = err.message;
-    }
-
     req.flash('error', errorMessage);
     res.redirect("/signup");
   }
 };
 
+
 module.exports.getLogin = async (req, res) => {
   res.render("../views/login.ejs");
 };
 
+
 module.exports.getForgotPassword = (req, res) => {
   res.render("../views/forgotPassword.ejs");
 };
+
 
 module.exports.postForgotPassword = async (req, res) => {
   try{

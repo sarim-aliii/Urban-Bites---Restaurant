@@ -53,25 +53,10 @@ document.addEventListener("DOMContentLoaded", () => {
         const customerName = document.getElementById("customerName").value.trim();
         const customerPhone = document.getElementById("customerPhone").value.trim();
         const customerAddress = document.getElementById("customerAddress").value.trim();
+        
         const selectedItems = Array.from(document.querySelectorAll('.menu-item:checked')).map(item => ({
-            name: item.value.split(' - ')[0], 
-            price: parseFloat(item.getAttribute('data-price'))
+            name: item.value.split(' - ')[0]
         }));
-
-        // Re-calculate the final total just before submission to ensure accuracy
-        let subtotal = 0;
-        selectedItems.forEach(item => {
-            subtotal += item.price;
-        });
-
-        let currentDeliveryFee = 0;
-        if (subtotal > 0 && subtotal < DELIVERY_THRESHOLD) {
-            currentDeliveryFee = DELIVERY_FEE;
-        }
-
-        const gstAmount = subtotal * GST_RATE;
-        const finalCalculatedTotal = subtotal + currentDeliveryFee + gstAmount;
-
 
         if (!customerName || !customerPhone || !customerAddress || selectedItems.length === 0) {
             alert("Please fill in all customer details and select at least one item.");
@@ -86,11 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     name: customerName,
                     phone: customerPhone,
                     address: customerAddress,
-                    items: selectedItems,
-                    subtotal: subtotal.toFixed(2),
-                    deliveryFee: currentDeliveryFee.toFixed(2),
-                    gstAmount: gstAmount.toFixed(2),
-                    totalPrice: finalCalculatedTotal.toFixed(2)
+                    items: selectedItems
                 }),
             });
 
@@ -105,7 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         catch (err) {
             console.error("Error submitting order:", err);
-            alert("An error occurred while placing the order. Please try again.");
+            alert("An error occurred while placing the order.");
         }
     });
 });

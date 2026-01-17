@@ -1,4 +1,5 @@
 const Reservation = require('../models/reservation'); 
+const { reservationSchema } = require('../schemas');
 
 
 module.exports.reservation = async (req, res) => {
@@ -15,13 +16,14 @@ module.exports.reservation = async (req, res) => {
 
 module.exports.getAPIReservation = async (req, res) => {
   try {
-    const { name, phone, date, time, guests } = req.body;
-
-    if (!name || !phone || !date || !time || !guests) {
-      console.error('Validation failed. Missing fields:', req.body);
-      return res.status(400).json({ message: 'All fields are required' });
+    // Validate request body
+    const { error } = reservationSchema.validate(req.body);
+    if (error) {
+      const msg = error.details.map(el => el.message).join(',');
+      return res.status(400).json({ message: msg });
     }
 
+    const { name, phone, date, time, guests } = req.body;
     const reservation = new Reservation({ name, phone, date, time, guests });
     await reservation.save();
     res.redirect('/reservation');
@@ -32,9 +34,16 @@ module.exports.getAPIReservation = async (req, res) => {
   }
 };
 
-
 module.exports.postAPIReservation = async (req, res) => {
   try {
+    // Validate request body
+    const { error } = reservationSchema.validate(req.body);
+    if (error) {
+      const msg = error.details.map(el => el.message).join(',');
+      req.flash('error', msg); // Send validation error to the user
+      return res.redirect("/reservation");
+    }
+
     let {name, phone, date, time, guests} = req.body;
     let newReservation = new Reservation({name, phone, date, time, guests});
     
@@ -43,10 +52,8 @@ module.exports.postAPIReservation = async (req, res) => {
     res.redirect("/reservation");
   } 
   catch (error) {
-    console.error("Error during reservation process", err);
-    let errorMessage = "Failed to create reservation. Please try again.";
-
-    req.flash('error', errorMessage);
+    console.error("Error during reservation process", error);
+    req.flash('error', "Failed to create reservation. Please try again.");
     res.redirect("/reservation");
   }
 };
