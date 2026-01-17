@@ -1,6 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./views/**/*.ejs"],
+  corePlugins: {
+    preflight: false, 
+  },
   theme: {
     extend: {
       colors: {

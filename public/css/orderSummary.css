@@ -1,19 +1,23 @@
 /* public/css/orderSummary.css */
 
+/* FORCE standard layout to override any global 'display: flex' on body */
 body {
     font-family: 'Roboto', sans-serif;
     background-color: #f8f9fa;
     color: #333;
     min-height: 100vh;
-    display: block; /* CHANGED: Removed flex to stop fighting Bootstrap */
+    display: block !important; 
+    text-align: left !important;
 }
 
 /* Navigation Overrides */
 nav {
+    display: block !important; /* Ensure it's a block, not a flex item */
+    width: 100% !important;    /* Force full width */
+    top: 0 !important;
+    left: 0 !important;
     background: white;
     box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    padding: 15px 0;
-    margin-bottom: 40px;
     position: relative;
     z-index: 1000;
 }
@@ -24,14 +28,14 @@ nav {
     list-style: none;
     padding: 0;
     margin: 0;
+    flex-wrap: wrap; /* Fix for mobile overflow */
 }
 
-.nav-flex-row li {
-    padding: 0 15px;
-    list-style: none; /* Reset list style */
+.nav-item {
+    margin: 0 15px;
 }
 
-.nav-flex-row li a {
+.nav-item a {
     text-decoration: none;
     color: #333;
     font-weight: 500;
@@ -39,10 +43,9 @@ nav {
     font-size: 0.9rem;
     letter-spacing: 1px;
     transition: color 0.3s;
-    font-family: 'Roboto', sans-serif; /* Consistency */
 }
 
-.nav-flex-row li a:hover {
+.nav-item a:hover {
     color: #d4af37;
 }
 
@@ -54,7 +57,7 @@ nav {
     border: none;
     overflow: hidden;
     max-width: 800px;
-    margin: 40px auto; /* Centers the card */
+    margin: 0 auto 50px auto; 
 }
 
 .receipt-header {
@@ -74,7 +77,7 @@ nav {
     padding: 40px;
 }
 
-/* Info Groups (Order ID, Name, etc) */
+/* Info Groups */
 .info-group {
     margin-bottom: 30px;
     padding-bottom: 20px;
@@ -118,7 +121,7 @@ nav {
     padding: 25px;
     margin-top: 20px;
     border: 1px solid #eee;
-    width: 100%; /* Ensures it takes full width */
+    width: 100%;
 }
 
 .final-total {
